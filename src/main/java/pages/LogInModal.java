@@ -1,53 +1,105 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import pages.BaseClass;
 
+
+/**
+ * Log in page set-up
+ */
 public class LogInModal extends BaseClass {
 
-    public WebDriver driver;
-
     public LogInModal(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver,this);
+        super(driver);
     }
 
-    @BeforeClass
-    @Override
-    public void setUpApplication() {
-        super.setUpApplication();
+    public LogInModal() {
+
     }
 
-    @AfterClass
-    @Override
-    public void closeApplication() {
-        super.closeApplication();
-    }
 
-    @FindBy (id = "//a[@id='nav-link-login']")
-    WebDriver logInButton;
+    @FindBy (xpath = "//a[@id='nav-link-login']")
+    WebElement logInButton;
 
-    @FindBy (id = "//button[@id='sign-in-button']")
-    WebDriver signInButton;
+    @FindBy (xpath = "//button[@id='sign-in-button']")
+    WebElement signInButton;
 
-    @FindBy (id ="//input[@id='defaultLoginFormUsername']")
-    WebDriver usernameField;
+    @FindBy (xpath ="//input[@id='defaultLoginFormUsername']")
+    WebElement usernameField;
 
-    @FindBy (id = "//input[@id='defaultLoginFormPassword']")
-    WebDriver passwordField;
+    @FindBy (xpath = "//input[@id='defaultLoginFormPassword']")
+    WebElement passwordField;
+
+    @FindBy (xpath = "//div[@aria-label='Successful login!']")
+    WebElement loginSuccessfulPopup;
+
+    @FindBy (xpath ="//a[@id='nav-link-profile']")
+    WebElement profileButton;
+
+    @FindBy (xpath = "//a[normalize-space()='Register']")
+    WebElement registerButton;
+
+    @FindBy (xpath = "//a[@id='nav-link-home']")
+    WebElement homeButton;
+
+    @FindBy (xpath = "//i[@class='fas fa-sign-out-alt fa-lg']")
+    WebElement signoutButton;
+
+    @FindBy (xpath = "//a[@id='nav-link-new-post']")
+    WebElement newPostButton;
 
     public void LogIn(){
-
+        usernameField.clear();
         usernameField.sendKeys("carpan1@abv.bg");
-//        driver.findElement((By) usernameField).clear();
-//        driver.findElement((By) usernameField).sendKeys("carpan1@abv.bg");
-//        driver.findElement((By) passwordField).clear();
-//        driver.findElement((By) passwordField).sendKeys("");
-
+        passwordField.clear();
+        passwordField.sendKeys("A931125z");
+        signInButton.click();
 }
+    public boolean checkPopUp(){
+        loginSuccessfulPopup.isDisplayed();
+        return true;
+    }
+
+    public void setUsernameField(String username){
+        usernameField.clear();
+        usernameField.sendKeys(username);
+    }
+
+    public void setPasswordField(String password){
+        passwordField.clear();
+        passwordField.sendKeys(password);
+    }
+
+    public void pressLogin(){
+        signInButton.click();
+    }
+
+    public boolean myProfile(){
+        profileButton.isDisplayed();
+        return true;
+    }
+
+    public void pressHomeButton(){
+
+        homeButton.click();
+    }
+
+    public void pressSignout(){
+
+        signoutButton.click();
+    }
+
+    public boolean isSignoutButton(){
+        signoutButton.isDisplayed();
+        return true;
+    }
+
+    public void newPostButon(){
+        newPostButton.click();
+    }
+    //TODO create small actions for password and username setup so they can be used separately
+
+    //TODO create assertion methods to be called in the SmokeTests class
+
 }
