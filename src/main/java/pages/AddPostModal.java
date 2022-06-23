@@ -19,8 +19,9 @@ public class AddPostModal extends BaseClass {
     @FindBy(xpath = "//h3[contains(text(),'Post a picture to share with your awesome follower')]")
     WebElement createHeader;
 
-    @FindBy (xpath = "//div[@class='uploadfilecontainer']")
+    @FindBy (xpath = "//input[@class='ng-untouched ng-pristine ng-invalid']")
     WebElement uploadImage;
+
 
     @FindBy (xpath = "//img[@class='image-preview']")
     WebElement imagePreview;
@@ -37,7 +38,7 @@ public class AddPostModal extends BaseClass {
     @FindBy (xpath = "//input[@placeholder='Enter you post caption here']")
     WebElement captionField;
 
-    @FindBy (xpath = "//input[@id='customSwitch2']")
+    @FindBy (xpath = "//label[normalize-space()='Public']")
     WebElement sliderField;
 
     @FindBy (xpath = "//label[normalize-space()='Private']")
@@ -52,7 +53,7 @@ public class AddPostModal extends BaseClass {
 
 
     public void addFile(){
-       uploadImage.sendKeys("C:\\Users\\Martina.daskalova\\Pictures\\Dragons\\ae67346ec418f711a499613faa124a2f.jpg");
+       uploadImage.sendKeys("D:\\Dragons\\ae67346ec418f711a499613faa124a2f.jpg");
     }
 
     public void addCaptions(){
@@ -61,14 +62,14 @@ public class AddPostModal extends BaseClass {
     }
 
     public void setToPublic(){
-        if (driver.findElement(By.xpath("//label[normalize-space()='Private']")) != setToPublic){
+        if (driver.findElement(By.xpath("//label[normalize-space()='Private']")) == setToPublic){
             sliderField.click();
 
         }
     }
 
     public void setToPrivate(){
-        if (driver.findElement(By.xpath("//label[normalize-space()='Private']")) == setToPublic){
+        if (driver.findElement(By.xpath("//label[normalize-space()='Private']")) != setToPublic){
             sliderField.click();
         }
     }

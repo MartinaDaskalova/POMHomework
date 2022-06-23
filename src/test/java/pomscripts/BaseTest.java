@@ -1,5 +1,6 @@
 package pomscripts;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -18,11 +19,6 @@ public class BaseTest {
     WebDriver driver;
     //TODO add surefire plugin and try to run with it
 
-
-    public BaseTest(WebDriver driver) {
-        this.driver = driver;
-    }
-
     LogInModal logInModal;
     SignUpModal signUpModal;
     UserPostModal userPostModal;
@@ -33,9 +29,10 @@ public class BaseTest {
 
         Reporter.log("=====Browser Session Started=====", true);
 
-        driver=new ChromeDriver();
-
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
         driver.manage().window().maximize();
+
 
         Reporter.log("=====Application Started=====", true);
 

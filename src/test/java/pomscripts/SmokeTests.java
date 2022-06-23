@@ -1,16 +1,10 @@
 package pomscripts;
 
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class SmokeTests extends BaseTest {
 
-
-
-    public SmokeTests(WebDriver driver) {
-        super(driver);
-    }
 
 
     //TODO add all tests in the SmokeTests class
@@ -33,6 +27,7 @@ public class SmokeTests extends BaseTest {
 
     @Test
     public void createPost() throws InterruptedException {
+        loginTest();
         logInModal.newPostButon();
         addPostModal.addFile();
         addPostModal.setToPublic();
@@ -41,18 +36,36 @@ public class SmokeTests extends BaseTest {
         Thread.sleep(5000);
     }
 
-    @Test
-    public void likePost(){
-
-        //logoutTest();
+    @Test (dependsOnMethods = "createPost")
+    public void likePost() throws InterruptedException {
+        loginTest();
+        userPostModal.takeFirstPost();
+        userPostModal.likePost();
+        userPostModal.isPostLiked();
+        userPostModal.isLikeAlertDisplayed();
+        driver.navigate().refresh();
+        logoutTest();
+        Thread.sleep(5000);
     }
 
     @Test
-    public void logoutTest() {
-        //TODO implement logout functionality from every place
-        // click the home button
-        // click te logout button, note to the logout after liking a post, you need to click outside the popup to remove it (hint, use refresh)
-        driver.navigate().refresh();
+    public void addComment() throws InterruptedException {
+        loginTest();
+        userPostModal.takeFirstPost();
+        userPostModal.addComment();
+    }
+
+//    @Test
+//    public void checkComment(){
+//        userPostModal.takeComments();
+//        Assert.assertEquals();
+//    }
+
+    @Test
+    public void logoutTest() throws InterruptedException {
+        loginTest();
+        logInModal.isSignoutButton();
+        logInModal.pressSignout();
     }
 
 

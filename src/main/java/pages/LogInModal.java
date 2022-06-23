@@ -50,6 +50,7 @@ public class LogInModal extends BaseClass {
     WebElement newPostButton;
 
     public void LogIn(){
+        logInButton.click();
         usernameField.clear();
         usernameField.sendKeys("carpan1@abv.bg");
         passwordField.clear();
@@ -98,8 +99,6 @@ public class LogInModal extends BaseClass {
     public void newPostButon(){
         newPostButton.click();
     }
-    //TODO create small actions for password and username setup so they can be used separately
 
-    //TODO create assertion methods to be called in the SmokeTests class
 
 }
