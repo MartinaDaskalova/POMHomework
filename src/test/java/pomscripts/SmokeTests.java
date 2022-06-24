@@ -1,7 +1,10 @@
 package pomscripts;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.UserPostModal;
 
 public class SmokeTests extends BaseTest {
 
@@ -36,6 +39,16 @@ public class SmokeTests extends BaseTest {
         Thread.sleep(5000);
     }
 
+    @Test
+    public void deletePost(){
+        try {
+            userPostModal.deletePost();
+        }
+            catch(ElementNotVisibleException e ) {
+            System.out.println("You are not the owner of this post");
+        }
+    }
+
     @Test (dependsOnMethods = "createPost")
     public void likePost() throws InterruptedException {
         loginTest();
@@ -44,7 +57,6 @@ public class SmokeTests extends BaseTest {
         userPostModal.isPostLiked();
         userPostModal.isLikeAlertDisplayed();
         driver.navigate().refresh();
-        logoutTest();
         Thread.sleep(5000);
     }
 
@@ -55,11 +67,12 @@ public class SmokeTests extends BaseTest {
         userPostModal.addComment();
     }
 
-//    @Test
-//    public void checkComment(){
-//        userPostModal.takeComments();
-//        Assert.assertEquals();
-//    }
+    @Test
+    public void checkComment() throws InterruptedException {
+        loginTest();
+        userPostModal.takeFirstPost();
+        driver.findElements(By.xpath("//*[contains(text(), 'Hello World')]"));
+    }
 
     @Test
     public void logoutTest() throws InterruptedException {

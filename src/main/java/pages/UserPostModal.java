@@ -73,6 +73,14 @@ public class UserPostModal extends BaseClass {
     @FindBy(xpath = "//div[@class='col-12 post-info']//div[@class='ml-2']")
     WebElement dislikesCounter;
 
+    @FindBy (xpath = "//a[normalize-space()='Delete post']")
+    WebElement deletePostButton;
+
+    @FindBy (xpath = "//button[normalize-space()='Yes']")
+     WebElement confirmDeletePostButton;
+
+    @FindBy (xpath ="//button[normalize-space()='No']")
+    WebElement cancelDeletePostButton;
 
     List<WebElement> comments = driver.findElements(By.xpath("//div[@class='comment-list-container']//app-comment-list"));
 
@@ -114,6 +122,11 @@ public class UserPostModal extends BaseClass {
 
     public void likesCounter() {
 
+    }
+
+    public void deletePost(){
+        deletePostButton.click();
+        confirmDeletePostButton.click();
     }
 
 //    public void takeComments(commentText) {
